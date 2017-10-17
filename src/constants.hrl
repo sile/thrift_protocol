@@ -1,0 +1,16 @@
+-define(MESSAGE_TYPE_CALL, 1).
+-define(MESSAGE_TYPE_REPLY, 2).
+-define(MESSAGE_TYPE_EXCEPTION, 3).
+-define(MESSAGE_TYPE_ONEWAY, 4).
+
+-define(DATA_TYPE_BOOLEAN, 2).
+-define(DATA_TYPE_I8, 3).
+-define(DATA_TYPE_I16, 6).
+-define(DATA_TYPE_I32, 8).
+-define(DATA_TYPE_I64, 10).
+-define(DATA_TYPE_FLOAT, 4).
+-define(DATA_TYPE_BINARY, 11).
+-define(DATA_TYPE_STRUCT, 12).
+-define(DATA_TYPE_MAP, 13).
+-define(DATA_TYPE_SET, 14).
+-define(DATA_TYPE_LIST, 15).
