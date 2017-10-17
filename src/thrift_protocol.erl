@@ -2,7 +2,7 @@
 
 -include("thrift_protocol.hrl").
 
--export([encode_message/2]).
+-export([encode_message/2, decode_message/2]).
 -export([data_type/1]).
 
 -export_type([message/0, message_type/0, struct/0]).
@@ -56,6 +56,12 @@ encode_message(Message, binary) ->
     thrift_protocol_binary:encode_message(Message);
 encode_message(Message, compact) ->
     thrift_protocol_compact:encode_message(Message).
+
+-spec decode_message(binary(), format()) -> {message(), binary()}.
+decode_message(Bin, binary) ->
+    thrift_protocol_binary:decode_message(Bin);
+decode_message(Bin, compact) ->
+    thrift_protocol_compact:decode_message(Bin).
 
 -spec data_type(data()) -> data_type().
 data_type(X) when is_boolean(X) ->
