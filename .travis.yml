@@ -16,9 +16,6 @@ script:
   - ./rebar3 eunit
   - ./rebar3 dialyzer
   - ./rebar3 edoc
-  - ./rebar3 cover
-  - ./rebar3 covertool generate
-  - cp _build/test/covertool/thrift_protocol.covertool.xml ./cobertura.xml
 
 after_success:
   - codecov
