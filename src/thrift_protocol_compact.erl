@@ -1,3 +1,4 @@
+%% @private
 -module(thrift_protocol_compact).
 
 -include("thrift_protocol.hrl").

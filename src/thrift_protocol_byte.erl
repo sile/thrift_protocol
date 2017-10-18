@@ -1,3 +1,4 @@
+%% @private
 -module(thrift_protocol_byte).
 
 -include("constants.hrl").
