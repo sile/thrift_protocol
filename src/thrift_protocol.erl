@@ -38,10 +38,10 @@
 
 -export_type([message/0, message_type/0]).
 -export_type([data/0, data_type/0]).
--export_type([struct/0, struct/1, field_id/0]).
--export_type([thrift_map/0, thrift_map/2]).
--export_type([thrift_list/0, thrift_list/1]).
--export_type([set/0, set/1]).
+-export_type([struct/0, field_id/0]).
+-export_type([thrift_map/0]).
+-export_type([thrift_list/0]).
+-export_type([set/0]).
 -export_type([i8/0, i16/0, i32/0, i64/0]).
 -export_type([format/0]).
 
@@ -57,28 +57,16 @@
 -type struct() :: #thrift_protocol_struct{}.
 %% Struct.
 
--type struct(Fields) :: #thrift_protocol_struct{fields :: Fields}.
-%% Struct.
-
 -type field_id() :: integer().
 %% The identifier of a struct field (16-bit signed integer).
 
 -type thrift_map() :: #thrift_protocol_map{}.
 %% Map.
 
--type thrift_map(KeyType, ValueType) :: #thrift_protocol_map{key_type :: KeyType, value_type :: ValueType}.
-%% Map.
-
 -type thrift_list() :: #thrift_protocol_list{}.
 %% List.
 
--type thrift_list(ElementType) :: #thrift_protocol_list{element_type :: ElementType}.
-%% List
-
 -type set() :: #thrift_protocol_set{}.
-%% Set.
-
--type set(ElementType) :: #thrift_protocol_set{element_type :: ElementType}.
 %% Set.
 
 -type i8() :: {i8, integer()}.
