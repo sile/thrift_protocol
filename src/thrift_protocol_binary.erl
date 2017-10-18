@@ -21,10 +21,10 @@ decode_message(<<1:1, ?VERSION:15, _:8, 0:5, TypeByte:3, NameLen:32, Name:NameLe
 
 -spec decode_struct(binary(), Fields) -> {thrift_protocol:struct(), binary()} when
       Fields :: #{thrift_protocol:field_id() => thrift_protocol:data()}.
-decode_struct(<<0:32, Rest/binary>>, Fields) ->
+decode_struct(<<0:8, Rest/binary>>, Fields) ->
     {#thrift_protocol_struct{fields = Fields}, Rest};
 decode_struct(<<TypeByte:8, Id:16/signed, Rest0/binary>>, Fields0) ->
-    Type = thrift_protocol_struct:to_data_type(TypeByte),
+    Type = thrift_protocol_byte:to_data_type(TypeByte),
     {Data, Rest1} = decode_data(Type, Rest0),
     Fields1 = maps:put(Id, Data, Fields0),
     decode_struct(Rest1, Fields1).
@@ -87,7 +87,7 @@ encode_struct(#thrift_protocol_struct{fields = Fields}) ->
               Type = thrift_protocol_byte:from_data_type(thrift_protocol:data_type(Data)),
               [<<Type:8, Id:16>>, encode_data(Data) | Acc]
       end,
-      [<<0:32>>],
+      [<<0:8>>],
       Fields).
 
 -spec encode_data(thrift_protocol:data()) -> iodata().
