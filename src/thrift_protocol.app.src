@@ -1,5 +1,5 @@
 {application, thrift_protocol,
- [{description, "An OTP library"},
+ [{description, "An Erlang implementation of Thrift protocol."},
   {vsn, "0.1.0"},
   {registered, []},
   {applications,
@@ -9,7 +9,7 @@
   {env,[]},
   {modules, []},
 
-  {maintainers, []},
+  {maintainers, ["Takeru Ohta"]},
   {licenses, ["MIT"]},
-  {links, []}
+  {links, [{"GitHub","https://github.com/sile/thrift_protocol"}]}
  ]}.
