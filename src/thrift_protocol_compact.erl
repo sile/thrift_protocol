@@ -1,4 +1,12 @@
 %% @private
+%%
+%% === NOTE ===
+%%
+%% The specification says "We are using big-endian",
+%% but actually, implementations are using little-endian.
+%%
+%% - Specification: https://github.com/apache/thrift/blob/8b8a8efea13d1c97f856053af0a5c0e6a8a76354/doc/specs/thrift-compact-protocol.md
+%% - Java Implementation: https://github.com/apache/thrift/blob/8b8a8efea13d1c97f856053af0a5c0e6a8a76354/lib/java/src/org/apache/thrift/protocol/TCompactProtocol.java#L466
 -module(thrift_protocol_compact).
 
 -include("thrift_protocol.hrl").
@@ -80,7 +88,7 @@ encode_data({i8, N}) -> <<N:8>>;
 encode_data({i16, N}) -> encode_data({i32, N});
 encode_data({i32, N}) -> encode_varint32(int32_to_zigzag(N));
 encode_data({i64, N}) -> encode_varint64(int64_to_zigzag(N));
-encode_data(N) when is_float(N) -> <<N/float>>;
+encode_data(N) when is_float(N) -> <<N/float-little>>;
 encode_data(B) when is_binary(B) -> encode_binary(B);
 encode_data(X = #thrift_protocol_struct{}) -> encode_struct(X);
 encode_data(#thrift_protocol_map{elements = M}) when M =:= #{} ->
@@ -186,7 +194,7 @@ decode_data(Bin0, i32) ->
 decode_data(Bin0, i64) ->
     {N, Bin1} = decode_varint64(Bin0),
     {{i64, zigzag_to_int(N)}, Bin1};
-decode_data(<<N/float, Bin/binary>>, float) ->
+decode_data(<<N/float-little, Bin/binary>>, float) ->
     {N, Bin};
 decode_data(Bin0, binary) ->
     {Size, Bin1} = decode_varint32(Bin0),

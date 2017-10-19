@@ -15,6 +15,15 @@ encode_test() ->
     ?assertEqual(lists:sort(binary_to_list(bytes())),
                  lists:sort(binary_to_list(list_to_binary(Bytes)))).
 
+float_test() ->
+    Message = #thrift_protocol_message{method_name = <<"foo">>, message_type = call, sequence_id = 1000,
+                                       body = #thrift_protocol_struct{fields = #{1 => 123.456}}},
+    Encoded = list_to_binary(thrift_protocol_compact:encode_message(Message)),
+    ?assertEqual(<<130,33,232,7,3,102,111,111,23,119,190,159,26,47,221,94,64,0>>, Encoded),
+
+    {Decoded, <<>>} = thrift_protocol_compact:decode_message(Encoded),
+    ?assertEqual(Message, Decoded).
+
 -spec bytes() -> binary().
 bytes() ->
     <<130,129,1,9,101,109,105,116,66,97,116,99,104,28,28,24,11,102,
