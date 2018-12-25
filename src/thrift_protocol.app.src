@@ -1,6 +1,6 @@
 {application,thrift_protocol,
              [{description,"An Erlang implementation of Thrift protocol."},
-              {vsn,"0.1.2"},
+              {vsn,"0.1.3"},
               {registered,[]},
               {applications,[kernel,stdlib]},
               {env,[]},
