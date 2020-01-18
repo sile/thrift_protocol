@@ -33,7 +33,7 @@
 
 -include("thrift_protocol.hrl").
 
--export([encode_message/2, decode_message/2]).
+-export([encode_message/2, decode_message/2, encode_struct/2, decode_struct/2]).
 -export([data_type/1]).
 
 -export_type([message/0, message_type/0]).
@@ -114,12 +114,26 @@ encode_message(Message, binary) ->
 encode_message(Message, compact) ->
     thrift_protocol_compact:encode_message(Message).
 
+%% @doc Encodes `Struct'.
+-spec encode_struct(struct(), Format :: format()) -> iodata().
+encode_struct(Struct, binary) ->
+    thrift_protocol_binary:encode_struct(Struct);
+encode_struct(Struct, compact) ->
+    thrift_protocol_compact:encode_struct(Struct).
+
 %% @doc Decodes a message from the given binary.
 -spec decode_message(binary(), Format :: format()) -> {message(), binary()}.
 decode_message(Bin, binary) ->
     thrift_protocol_binary:decode_message(Bin);
 decode_message(Bin, compact) ->
     thrift_protocol_compact:decode_message(Bin).
+
+%% @doc Decodes a struct from the given binary.
+-spec decode_struct(binary(), Format :: format()) -> {struct(), binary()}.
+decode_struct(Bin, binary) ->
+    thrift_protocol_binary:decode_struct(Bin, #{});
+decode_struct(Bin, compact) ->
+    thrift_protocol_compact:decode_struct(Bin, 0, #{}).
 
 %% @doc Returns the type of `Data'.
 -spec data_type(Data :: data()) -> data_type().

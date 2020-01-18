@@ -11,7 +11,7 @@
 
 -include("thrift_protocol.hrl").
 
--export([decode_message/1, encode_message/1]).
+-export([decode_message/1, encode_message/1, encode_struct/1, decode_struct/3]).
 
 -define(PROTOCOL_ID, 16#82).
 -define(VERSION, 1).
